@@ -44,6 +44,7 @@ void printLocalTime()
   }
   Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
 }
+
 void setup()
 {
   Serial.begin(112500);
@@ -53,6 +54,7 @@ void setup()
     delay(500);
     Serial.print(".");
   }
+
   Serial.println(" CONNECTED");
   configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
   printLocalTime();
@@ -61,6 +63,7 @@ void setup()
   xTaskCreatePinnedToCore(coreTask0, "coreTask0", 10000, NULL, 1, NULL, core1);
   xTaskCreatePinnedToCore(coreTask1, "coreTask1", 10000, NULL, 1, NULL, core0);
 }
+
 void loop()
 {
   printLocalTime();
