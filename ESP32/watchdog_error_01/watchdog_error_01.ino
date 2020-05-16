@@ -31,6 +31,7 @@ void coreTask1( void * pvParameters )
       Serial.println("CoreTask1 running on core " + String(xPortGetCoreID()));
       delay(1000);
     }
+    vTaskDelay(1000);
   }
   vTaskDelete(NULL);
 }
