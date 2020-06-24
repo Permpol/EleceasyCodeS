@@ -2,6 +2,7 @@
 
 const byte ROWS = 4; //four rows
 const byte COLS = 3; //three columns
+int inputA1;
 
 char keys[ROWS][COLS] = {
   {'1','2','3'},
@@ -26,5 +27,10 @@ void loop(){
   if (key){
     Serial.print("Key Pressed : ");
     Serial.println(key);
+  }
+
+  if(key == '5'){ //เมื่อ กด 5 เข้าเงื่อนไขนี้
+      inputA1 = 20; // แทนค่า inputA1 ด้วย 20 ที่ทำให้ PWM มี dutycycle 5 %
+    
   }
 }
