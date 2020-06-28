@@ -28,7 +28,11 @@ TCCR1B = _BV(WGM13) | _BV(CS11);
 }
   
 void loop(){  
- 
+ while((A1)<0){
+  }
+    while((A1)>1000){
+  OCR1A = 0;
+  } 
 
   char key = keypad.getKey();// Read the key
   
