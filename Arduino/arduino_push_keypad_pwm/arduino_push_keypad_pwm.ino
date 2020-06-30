@@ -31,14 +31,57 @@ void loop(){
  
 
   char key = keypad.getKey();// Read the key
-  
-  // Print if key pressed
-  if (key){
-    Serial.println(String("Read A1 = ")+ A1);
-    Serial.print("Key Pressed : ");
-    Serial.println(key);
-    
-    ICR1 = 62.5; 
+
+  if(key == '0'){ //เมื่อ กด 0 เข้าเงื่อนไขนี้
+      inputA1 = 1024; // แทนค่า inputA1 ด้วย 1024 ที่ทำให้ PWM มี dutycycle 5 %
+      Serial.println(String("Read inputA1 = ")+ inputA1);
+  }
+  if(key == '1'){ //เมื่อ กด 1 เข้าเงื่อนไขนี้
+      inputA1 = 900; // แทนค่า inputA1 ด้วย 900 ที่ทำให้ PWM มี dutycycle 10 %
+      Serial.println(String("Read inputA1 = ")+ inputA1);
+  }
+  if(key == '2'){ //เมื่อ กด 2 เข้าเงื่อนไขนี้
+      inputA1 = 800; // แทนค่า inputA1 ด้วย 800 ที่ทำให้ PWM มี dutycycle 15 %
+      Serial.println(String("Read inputA1 = ")+ inputA1);
+  }
+  if(key == '3'){ //เมื่อ กด 3 เข้าเงื่อนไขนี้
+      inputA1 = 700; // แทนค่า inputA1 ด้วย 700 ที่ทำให้ PWM มี dutycycle 20 %
+      Serial.println(String("Read inputA1 = ")+ inputA1);
+  }
+  if(key == '4'){ //เมื่อ กด 4 เข้าเงื่อนไขนี้
+      inputA1 = 600; // แทนค่า inputA1 ด้วย 600 ที่ทำให้ PWM มี dutycycle 30 %
+      Serial.println(String("Read inputA1 = ")+ inputA1);
+  }
+  if(key == '5'){ //เมื่อ กด 5 เข้าเงื่อนไขนี้
+      inputA1 = 500; // แทนค่า inputA1 ด้วย 500 ที่ทำให้ PWM มี dutycycle 40 %
+      Serial.println(String("Read inputA1 = ")+ inputA1);
+  }
+  if(key == '6'){ //เมื่อ กด 6 เข้าเงื่อนไขนี้
+      inputA1 = 400; // แทนค่า inputA1 ด้วย 400 ที่ทำให้ PWM มี dutycycle 50 %
+      Serial.println(String("Read inputA1 = ")+ inputA1);
+  }
+  if(key == '7'){ //เมื่อ กด 7 เข้าเงื่อนไขนี้
+      inputA1 = 300; // แทนค่า inputA1 ด้วย 300 ที่ทำให้ PWM มี dutycycle 60 %
+      Serial.println(String("Read inputA1 = ")+ inputA1);
+  }
+  if(key == '8'){ //เมื่อ กด 8 เข้าเงื่อนไขนี้
+      inputA1 = 200; // แทนค่า inputA1 ด้วย 200 ที่ทำให้ PWM มี dutycycle 70 %
+      Serial.println(String("Read inputA1 = ")+ inputA1);
+  }
+  if(key == '9'){ //เมื่อ กด 9 เข้าเงื่อนไขนี้
+      inputA1 = 100; // แทนค่า inputA1 ด้วย 100 ที่ทำให้ PWM มี dutycycle 80 %
+      Serial.println(String("Read inputA1 = ")+ inputA1);
+  }
+  if(key == '*'){ //เมื่อ กด * เข้าเงื่อนไขนี้
+      inputA1 = 50; // แทนค่า inputA1 ด้วย 50 ที่ทำให้ PWM มี dutycycle 90 %
+      Serial.println(String("Read inputA1 = ")+ inputA1);
+  }
+  if(key == '#'){ //เมื่อ กด # เข้าเงื่อนไขนี้
+      inputA1 = 0; // แทนค่า inputA1 ด้วย 0 ที่ทำให้ PWM มี dutycycle 100 %
+      Serial.println(String("Read inputA1 = ")+ inputA1);
+ }
+
+ ICR1 = 62.5; 
 pwm1 = inputA1; 
 
 xxx = float(pwm1);
@@ -48,43 +91,4 @@ xxx = xxx * ICR1;
 xxx = xxx / 512;
 
 OCR1A = int(62.5-(xxx/2));
-
-  }
-
-  if(key == '0'){ //เมื่อ กด 0 เข้าเงื่อนไขนี้
-      inputA1 = 1024; // แทนค่า inputA1 ด้วย 1024 ที่ทำให้ PWM มี dutycycle 5 %
-  }
-  if(key == '1'){ //เมื่อ กด 1 เข้าเงื่อนไขนี้
-      inputA1 = 900; // แทนค่า inputA1 ด้วย 900 ที่ทำให้ PWM มี dutycycle 10 %
-  }
-  if(key == '2'){ //เมื่อ กด 2 เข้าเงื่อนไขนี้
-      inputA1 = 800; // แทนค่า inputA1 ด้วย 800 ที่ทำให้ PWM มี dutycycle 15 %
-  }
-  if(key == '3'){ //เมื่อ กด 3 เข้าเงื่อนไขนี้
-      inputA1 = 700; // แทนค่า inputA1 ด้วย 700 ที่ทำให้ PWM มี dutycycle 20 %
-  }
-  if(key == '4'){ //เมื่อ กด 4 เข้าเงื่อนไขนี้
-      inputA1 = 600; // แทนค่า inputA1 ด้วย 600 ที่ทำให้ PWM มี dutycycle 30 %
-  }
-  if(key == '5'){ //เมื่อ กด 5 เข้าเงื่อนไขนี้
-      inputA1 = 500; // แทนค่า inputA1 ด้วย 500 ที่ทำให้ PWM มี dutycycle 40 %
-  }
-  if(key == '6'){ //เมื่อ กด 6 เข้าเงื่อนไขนี้
-      inputA1 = 400; // แทนค่า inputA1 ด้วย 400 ที่ทำให้ PWM มี dutycycle 50 %
-  }
-  if(key == '7'){ //เมื่อ กด 7 เข้าเงื่อนไขนี้
-      inputA1 = 300; // แทนค่า inputA1 ด้วย 300 ที่ทำให้ PWM มี dutycycle 60 %
-  }
-  if(key == '8'){ //เมื่อ กด 8 เข้าเงื่อนไขนี้
-      inputA1 = 200; // แทนค่า inputA1 ด้วย 200 ที่ทำให้ PWM มี dutycycle 70 %
-  }
-  if(key == '9'){ //เมื่อ กด 9 เข้าเงื่อนไขนี้
-      inputA1 = 100; // แทนค่า inputA1 ด้วย 100 ที่ทำให้ PWM มี dutycycle 80 %
-  }
-  if(key == '*'){ //เมื่อ กด * เข้าเงื่อนไขนี้
-      inputA1 = 50; // แทนค่า inputA1 ด้วย 50 ที่ทำให้ PWM มี dutycycle 90 %
-  }
-  if(key == '#'){ //เมื่อ กด # เข้าเงื่อนไขนี้
-      inputA1 = 0; // แทนค่า inputA1 ด้วย 0 ที่ทำให้ PWM มี dutycycle 100 %
- }
 }

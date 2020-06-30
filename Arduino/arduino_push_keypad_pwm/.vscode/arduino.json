@@ -1,0 +1,5 @@
+{
+    "board": "arduino:avr:uno",
+    "sketch": "arduino_push_keypad_pwm.ino",
+    "port": "COM4"
+}
