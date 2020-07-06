@@ -1,5 +1,5 @@
 {
     "board": "arduino:avr:uno",
     "sketch": "arduino_push_keypad_2_digits.ino",
-    "port": "COM16"
+    "port": "COM4"
 }
