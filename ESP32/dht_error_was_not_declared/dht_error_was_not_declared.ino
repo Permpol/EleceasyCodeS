@@ -10,21 +10,11 @@ char auth[] = "9d2ea3c204d3494caa739e5ab32a397f";
 char ssid[] = "Anuwat";
 char pass[] = "0817876668";
 
-
+#define DHTPIN 15
 #define DHTTYPE DHT22     // DHT 22
 
 DHT dht(DHTPIN, DHTTYPE);
 
-void setup()
-{
-Serial.begin(9600);
-Serial.println();
-Serial.println("DHTxx test!");
- 
-  dht.begin();
-}
-
-const int DHTPIN  = 15;
 const int Relay1  = 13;
 const int Relay2  = 12;
 const int Relay3  = 14;
@@ -168,6 +158,10 @@ BLYNK_WRITE(V27)
 void setup() 
 {
  Serial.begin(9600);
+Serial.println();
+Serial.println("DHTxx test!");
+ 
+  dht.begin();
  //Relay
  pinMode(Relay1, OUTPUT);
  pinMode(Relay2, OUTPUT);
