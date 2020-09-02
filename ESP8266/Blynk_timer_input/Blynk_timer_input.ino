@@ -14,10 +14,10 @@ ESP8266 wifi(&EspSerial);
 
 //  DEKLARASI AWAL
 //====================================================
-char auth[] = "xxxxxxxxxxxxxxx";
+char auth[] = "CY5tqu1d8NmgXUcTC9HFpqCkJMe2Yq8R";
 char server[] = "oasiskit.com";
-char ssid[] = "xxxxxxxxxxxxx";
-char pass[] = "xxxxxxxxxxxxx";
+char ssid[] = "Office2.4G";
+char pass[] = "glnvdgdj'";
 int port = 8080;
 
 
@@ -26,21 +26,85 @@ int port = 8080;
   WidgetLED StatusLED2(V61);
 //====END WidgetLED=============================
 
-
-//====WidgetTimeInput========================================================
-//SimpleTimer timer;
+//=============================
 char Time[16];
 BlynkTimer timer;
 WidgetRTC rtc;
 WidgetTerminal terminal(V13);
-//bool isFirstConnect = true;
+bool isFirstConnect = true;
 long currentTime; 
 long TimeStart;
 long TimeStop; 
+String displaycurrenttimepluswifi;
+//=============================
 
-//void requestTime() {
-//  Blynk.sendInternal("rtc", "sync");
-//}
+void setup()
+{
+  pinMode(30, OUTPUT);
+  pinMode(32, OUTPUT);
+
+  digitalWrite(30, LOW);
+  digitalWrite(32, LOW);
+  
+  Serial.begin(115200);
+  Serial3.begin(115200);
+
+  delay(10);
+  EspSerial.begin(ESP8266_BAUD);
+  delay(10);
+
+  //WiFi.begin(ssid, pass); //เชื่อมต่อ WiFi
+  Blynk.begin(auth, wifi, ssid, pass, server, port);     //Reguler server
+  //Blynk.begin(auth, wifi, ssid, pass, "192.168.43.120", 8080);    //Local server
+  terminal.clear();
+  
+  int mytimeout = millis() / 1000;
+  while (Blynk.connect() == false) { // try to connect to server for 10 seconds
+    if ((millis() / 1000) > mytimeout + 8) { // try local server if not connected within 9 seconds
+      break;
+    }
+  }
+  
+  rtc.begin();
+  timer.setInterval(10000L, activetoday);
+  timer.setInterval(30000L, reconnectBlynk);
+  timer.setInterval(5000L, clockvalue);  // check value for time
+}
+
+//====WidgetTimeInput========================================================
+BLYNK_CONNECTED() {
+  if (isFirstConnect) {
+    Blynk.syncAll();
+    Blynk.notify("TIMER STARTING!!!!");
+    isFirstConnect = false;
+  }
+}
+
+
+void clockvalue() // Show time on Terminal
+{
+  int gmthour = hour();
+  if (gmthour == 24) {
+    gmthour = 0;
+  }
+  String displayhour =   String(gmthour, DEC);
+  int hourdigits = displayhour.length();
+  if (hourdigits == 1) {
+    displayhour = "0" + displayhour;
+  }
+  String displayminute = String(minute(), DEC);
+  int minutedigits = displayminute.length();
+  if (minutedigits == 1) {
+    displayminute = "0" + displayminute;
+  }
+
+  displaycurrenttimepluswifi = "Clock:  " + displayhour + ":" + displayminute + " ";
+  Blynk.setProperty(V13, "label", displaycurrenttimepluswifi);
+
+}
+
+
+
 //====End TimeInput========================================================
 
 
@@ -89,30 +153,6 @@ BLYNK_WRITE(V3) {
 //====END LED2================================================
 
 
-void setup()
-{
-  pinMode(30, OUTPUT);
-  pinMode(32, OUTPUT);
-
-  digitalWrite(30, LOW);
-  digitalWrite(32, LOW);
-  
-  Serial.begin(115200);
-  Serial3.begin(115200);
-
-  delay(10);
-  EspSerial.begin(ESP8266_BAUD);
-  delay(10);
-
-  //WiFi.begin(ssid, pass); //เชื่อมต่อ WiFi
-  Blynk.begin(auth, wifi, ssid, pass, server, port);     //Reguler server
-  //Blynk.begin(auth, wifi, ssid, pass, "192.168.43.120", 8080);    //Local server
-
-  rtc.begin();
-  timer.setInterval(10000L, activetoday);
-  timer.setInterval(30000L, reconnectBlynk);
-}
-
 void activetoday() {       // check if schedule should run today
   if (year() != 1970) {    
       Blynk.syncVirtual(V20); // sync timeinput widget
@@ -137,52 +177,40 @@ BLYNK_WRITE(V20){
 
   TimeStop = (t.getStopHour() * 3600) + (t.getStopMinute() * 60);
 
-  //loop Start time
-  if (currentTime >= TimeStart){
-      terminal.print("Now Time > Start Time");
-      terminal.flush();
-      if(currentTime <= TimeStart + 30){
-        digitalWrite(30, HIGH); //LED On 
-        //StatusLED1.on();
-        terminal.println("LED ON");
-        terminal.flush();
+  //ตรวจสอบการเลือกวัน
+    int dayadjustment = -1;
+    if (weekday() == 1) {
+      dayadjustment =  6; 
+    }
+    if (t.isWeekdaySelected(weekday() + dayadjustment)) { 
+
+      for (int i = 1; i <= 7; i++) {  // Process weekdays (1. Mon, 2. Tue, 3. Wed, ...)
+        if (t.isWeekdaySelected(i)) {
+          terminal.println(String("Day ") + i + " is selected");
+          terminal.flush();
+          
+          if(currentTime >= TimeStart && currentTime < TimeStop){
+            terminal.print("LED ON");
+            terminal.flush();
+            digitalWrite(30,HIGH);
+            digitalWrite(32,HIGH);
+            StatusLED1.on();
+            StatusLED2.on();
+          }else{
+            terminal.print("LED OFF");
+            terminal.flush();
+            digitalWrite(30,LOW);
+            digitalWrite(32,LOW);
+            StatusLED1.off();
+            StatusLED2.off();
+          }
+          
+        }
       }
-        
-  }else{
-     /* terminal.print("Now Time < Start Time");
-      terminal.flush();*/
-      digitalWrite(30, LOW); //LED Off
-      terminal.println("LED OFF");
-      //StatusLED1.off();
-  }
-  //// loop End time
-    if(currentTime >= TimeStop){
-       digitalWrite(30, LOW); // set LED OFF
-       terminal.println("LED OFF");
-       if(currentTime <= TimeStop){
-        digitalWrite(30, LOW); //set LED OFF
-        terminal.println("LED OFF");
-       }
     }
-    else{
-       if(currentTime >= TimeStart){
-          digitalWrite(30, HIGH); // set LED ON
-          terminal.println("LED ON");
-       }
+    else {
+      ///Not Day Select
     }
- 
-  // Process timezone
-  // Timezone is already added to start/stop time
-
-  //Serial.println(String("Time zone: ") + t.getTZ());
-
-//  for (int i = 1; i <= 7; i++) {
-//    if (t.isWeekdaySelected(i)) {
-//      Serial.println(String("Day ") + i + " is selected");
-//    }else{
-//      Serial.println(String("Day ") + i + " is not select");
-//    }
-//  }
 
 }
 
@@ -205,5 +233,5 @@ void loop()
   if ( Serial.available() )       {
     Serial3.write( Serial.read() );
   }
-
+  timer.run();
 }
