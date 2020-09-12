@@ -3,4 +3,22 @@
     "files.associations": {
         "*.tcc": "cpp"
     }
+     // MAGIC (XL)
+     "powermode.enabled": true,
+     "powermode.enableShake": false,
+ 
+     "powermode.customExplosions": [
+         "https://i.imgur.com/CnBUEmi.gif"
+     ],
+     "powermode.explosionOrder": "sequential",
+     "powermode.explosionSize": 12,
+     "powermode.explosionFrequency": 2,
+     "powermode.maxExplosions": 10,
+     "powermode.explosionOffset": 0.215,
+     "powermode.customCss": {
+         "mix-blend-mode": "color-dodge"
+     },
+     "powermode.gifMode": "restart",
+     "powermode.explosionDuration": 1000,
+     "powermode.backgroundMode": "mask",
 }

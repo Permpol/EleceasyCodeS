@@ -3,6 +3,7 @@
         {
             "name": "Win32",
             "includePath": [
+                "C:\\Users\\ArcHeR\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.7.4\\**",
                 "C:\\Users\\ArcHeR\\Documents\\Arduino\\libraries\\Adafruit_Unified_Sensor",
                 "C:\\Users\\ArcHeR\\Documents\\Arduino\\libraries\\DHT_sensor_library",
                 "C:\\Users\\ArcHeR\\AppData\\Local\\Arduino15\\packages\\esp8266\\tools\\**",

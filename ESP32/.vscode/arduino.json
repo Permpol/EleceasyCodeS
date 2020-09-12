@@ -2,5 +2,5 @@
     "board": "esp32:esp32:esp32doit-devkit-v1",
     "configuration": "FlashFreq=80,UploadSpeed=115200,DebugLevel=none",
     "port": "COM10",
-    "sketch": "dht_error_was_not_declared\\dht_error_was_not_declared.ino"
+    "sketch": "widget_Real-time_clock\\widget_Real-time_clock.ino"
 }
