@@ -67,7 +67,7 @@ void loop()
 void LINE1()
 {
   Serial.println("ส่งเเรียบร้อย");
-  LINE.notify(Total);
+  LINE.notify(String(Total));
 }
 BLYNK_WRITE(V1) 
 {
