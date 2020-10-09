@@ -17,12 +17,12 @@ SimpleTimer timer;
 
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
-char auth[] = "31XmVGrutN6PTd-fcSTcQLEPLZnSJNMR";
+char auth[] = "0z0F7zDnJ4fReHWSGlrFo8Zc3wz9S7r8";
 
 // Your WiFi credentials.
 // Set password to "" for open networks.
-char ssid[] = "Ammara_2.4GHz";
-char pass[] = "0866922890";
+char ssid[] = "Eleceasy";
+char pass[] = "XXXXXXXXX";
 // Line config
 
 BLYNK_CONNECTED() {
@@ -70,6 +70,8 @@ void sendTemp()
 
 void loop()
 {
+
+  Blynk.run();
   if (temperature >= setTemp)
   {
     digitalWrite(pinPump1, HIGH);
