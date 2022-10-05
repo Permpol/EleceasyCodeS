@@ -72,8 +72,6 @@ int sec = 0, m = 0, h = 0;    //นับเวลาแจ้งเตือน
 float setvalue[] = {300, 400, 500, 50}; //ค่า 1 2 ปกติ 3 และ 4ถ้าเริ่มน้อยแปลว่าให้เช็คเเละเริ่มแจ้งเตือนว่าเเสงน้อย (แสง)
 float setvalueh[] = {60, 70}; 
 Ticker ticker;
-#include <SimpleTimer.h>
-SimpleTimer timer;
 /*void calsensoer()
 {
   int lux = lightMeter.readLightLevel() + 190;
